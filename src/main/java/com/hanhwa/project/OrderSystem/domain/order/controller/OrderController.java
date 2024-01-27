@@ -22,16 +22,19 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    // 주문 생성
     @PostMapping("/order/new")
     public ResponseEntity<OrderCreateResponse> createOrder(@RequestBody OrderCreateRequest req){
         return new ResponseEntity<>(orderService.createOrder(req), HttpStatus.CREATED);
     }
 
+    // orderItems 목록 조회
     @GetMapping("/orderitems/{id}")
     public ResponseEntity<List<OrderItemResponse>> getOrderItems(@PathVariable Long id){
         return new ResponseEntity<>(orderService.getOrderItems(id), HttpStatus.OK);
     }
 
+    // 주문 취소
     @DeleteMapping("/order/{id}/cancel")
     public ResponseEntity<String> cancelOrder(@PathVariable Long id){
         try{
