@@ -51,9 +51,9 @@ public class MemberService {
     public List<OrderItemResponse> getMemberOrders(Long id){
         Member findMember = memberRepository.findById(id)
                 .orElseThrow(MemberNotFoundException::new);
-        List<Order> memberOrders = memberRepository.findMemberOrders(findMember.getId());
+        findMember.setOrders(memberRepository.findMemberOrders(findMember.getId())); // List<Order> Member에 세팅
         List<OrderItemResponse> orderItemResponses = new ArrayList<>();
-        for (Order order : memberOrders){
+        for (Order order : findMember.getOrders()){
             for (OrderItem orderItem : order.getOrderItems()){
                 orderItemResponses.add(OrderItemResponse.from(orderItem));
             }
